@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>🔥 โปรแกรมเวท 5 วัน - ลดพุงล่าง</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .goal {
+            text-align: center;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            font-weight: bold;
+            color: #2d3436;
+            font-size: 1.1em;
+        }
+
+        .day-section {
+            margin: 30px 0;
+        }
+
+        .day-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(102,126,234,0.3);
+            margin-bottom: 20px;
+        }
+
+        .rest-day {
+            background: linear-gradient(135deg, #a8e6cf 0%, #6dd5b4 100%);
+            text-align: center;
+            padding: 40px;
+            border-radius: 15px;
+            font-size: 1.8em;
+            color: white;
+            font-weight: bold;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(109,213,180,0.3);
+        }
+
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .exercise-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .exercise-card:active {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        .exercise-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .exercise-icon {
+            width: 100%;
+            height: 120px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 3.5em;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .exercise-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .exercise-details {
+            color: #666;
+            font-size: 0.95em;
+            text-align: center;
+            padding: 8px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+        }
+
+        .cardio-section {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(238,90,111,0.3);
+        }
+
+        .cardio-section h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .cardio-section p {
+            font-size: 1.1em;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            position: relative;
+            margin: 5% auto;
+            width: 90%;
+            max-width: 900px;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: slideIn 0.3s ease;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 35px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s;
+            z-index: 10;
+            -webkit-tap-highlight-color: transparent;
+            padding: 10px;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #000;
+        }
+
+        .close-btn:active {
+            color: #667eea;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .modal-subtitle {
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        .image-container {
+            width: 100%;
+            background: #f5f7fa;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            min-height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .image-placeholder .emoji {
+            font-size: 5em;
+            margin-bottom: 20px;
+        }
+
+        .image-placeholder h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .image-placeholder p {
+            font-size: 1.1em;
+            margin: 10px 0;
+            opacity: 0.9;
+        }
+
+        .tips-box {
+            background: linear-gradient(135deg, #a8e6cf 0%, #6dd5b4 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(109,213,180,0.3);
+        }
+
+        .tips-box h2 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .tips-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tips-box li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            color: white;
+            font-size: 1.1em;
+        }
+
+        .tips-box li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #ffeaa7;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+                border-radius: 15px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+                margin-bottom: 8px;
+            }
+
+            .subtitle {
+                font-size: 1em;
+                margin-bottom: 8px;
+            }
+
+            .goal {
+                font-size: 0.9em;
+                padding: 12px;
+                margin-bottom: 20px;
+            }
+
+            .day-header {
+                font-size: 1.2em;
+                padding: 12px 15px;
+                margin-bottom: 15px;
+            }
+
+            .rest-day {
+                font-size: 1.4em;
+                padding: 30px 20px;
+            }
+            
+            .exercise-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .exercise-card {
+                padding: 15px;
+            }
+
+            .exercise-icon {
+                height: 80px;
+                font-size: 2.5em;
+                margin-bottom: 10px;
+            }
+
+            .exercise-name {
+                font-size: 1em;
+                margin-bottom: 6px;
+            }
+
+            .exercise-details {
+                font-size: 0.85em;
+                padding: 6px;
+            }
+
+            .cardio-section {
+                padding: 15px;
+                margin-top: 15px;
+            }
+
+            .cardio-section h3 {
+                font-size: 1.1em;
+                margin-bottom: 10px;
+            }
+
+            .cardio-section p {
+                font-size: 0.95em;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 3% auto;
+                padding: 15px;
+                max-height: 90vh;
+                border-radius: 15px;
+            }
+            
+            .modal-title {
+                font-size: 1.3em;
+                margin-bottom: 5px;
+            }
+
+            .modal-subtitle {
+                font-size: 1em;
+            }
+
+            .close-btn {
+                font-size: 28px;
+                top: 10px;
+                right: 15px;
+            }
+
+            .modal-header {
+                margin-bottom: 15px;
+            }
+
+            .image-container {
+                min-height: 250px;
+                margin-bottom: 0;
+            }
+
+            .image-placeholder {
+                min-height: 250px;
+                padding: 20px;
+            }
+
+            .image-placeholder .emoji {
+                font-size: 2.5em;
+                margin-bottom: 15px;
+            }
+
+            .image-placeholder h3 {
+                font-size: 1.2em;
+                margin-bottom: 10px;
+            }
+
+            .image-placeholder p {
+                font-size: 0.9em;
+            }
+
+            .tips-box {
+                padding: 20px;
+                margin-top: 20px;
+            }
+
+            .tips-box h2 {
+                font-size: 1.4em;
+                margin-bottom: 12px;
+            }
+
+            .tips-box li {
+                font-size: 0.95em;
+                padding: 8px 0;
+                padding-left: 25px;
+            }
+
+            .tips-box li::before {
+                font-size: 1.2em;
+            }
+        }
+
+        /* สำหรับมือถือขนาดเล็กมาก */
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.3em;
+            }
+
+            .subtitle {
+                font-size: 0.9em;
+            }
+
+            .goal {
+                font-size: 0.85em;
+                padding: 10px;
+            }
+
+            .day-header {
+                font-size: 1.1em;
+                padding: 10px;
+            }
+
+            .rest-day {
+                font-size: 1.2em;
+                padding: 25px 15px;
+            }
+
+            .exercise-card {
+                padding: 12px;
+            }
+
+            .exercise-icon {
+                height: 70px;
+                font-size: 2em;
+            }
+
+            .exercise-name {
+                font-size: 0.95em;
+            }
+
+            .exercise-details {
+                font-size: 0.8em;
+            }
+
+            .tips-box li {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 โปรแกรมเวท 5 วัน</h1>
+        <div class="subtitle">พัก พุธ + อาทิตย์</div>
+        <div class="goal">
+            🎯 เป้าหมาย: ลดพุงล่าง + กล้ามชัด | น้ำหนัก 65 กก. ส่วนสูง 176 ซม.
+        </div>
+
+        <!-- วันจันทร์ -->
+        <div class="day-section">
+            <div class="day-header">📅 จันทร์ — อก + ท้อง</div>
+            <div class="exercise-grid">
+                <div class="exercise-card" onclick="openModal('bench_press', 'Bench Press', '4 เซ็ต × 8-10 ครั้ง')">
+                    <div class="exercise-icon">💪</div>
+                    <div class="exercise-name">Bench Press</div>
+                    <div class="exercise-details">4 เซ็ต × 8-10 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('incline_db_press', 'Incline DB Press', '3 เซ็ต × 10-12 ครั้ง')">
+                    <div class="exercise-icon">🏋️</div>
+                    <div class="exercise-name">Incline DB Press</div>
+                    <div class="exercise-details">3 เซ็ต × 10-12 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('db_fly', 'DB Fly', '3 เซ็ต × 12-15 ครั้ง')">
+                    <div class="exercise-icon">🦅</div>
+                    <div class="exercise-name">DB Fly</div>
+                    <div class="exercise-details">3 เซ็ต × 12-15 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('pushup', 'Push-up', '3 เซ็ต')">
+                    <div class="exercise-icon">⬇️</div>
+                    <div class="exercise-name">Push-up</div>
+                    <div class="exercise-details">3 เซ็ต</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('cable_crunch', 'Cable Crunch', '3 เซ็ต × 15 ครั้ง')">
+                    <div class="exercise-icon">🔽</div>
+                    <div class="exercise-name">Cable Crunch</div>
+                    <div class="exercise-details">3 เซ็ต × 15 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('plank', 'Plank', '3 เซ็ต × 40-60 วินาที')">
+                    <div class="exercise-icon">🏗️</div>
+                    <div class="exercise-name">Plank</div>
+                    <div class="exercise-details">3 เซ็ต × 40-60 วินาที</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- วันอังคาร -->
+        <div class="day-section">
+            <div class="day-header">📅 อังคาร — หลัง + คาร์ดิโอ</div>
+            <div class="exercise-grid">
+                <div class="exercise-card" onclick="openModal('lat_pulldown', 'Lat Pulldown', '4 เซ็ต × 10 ครั้ง')">
+                    <div class="exercise-icon">⬇️</div>
+                    <div class="exercise-name">Lat Pulldown</div>
+                    <div class="exercise-details">4 เซ็ต × 10 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('seated_row', 'Seated Row', '3 เซ็ต × 10-12 ครั้ง')">
+                    <div class="exercise-icon">🚣</div>
+                    <div class="exercise-name">Seated Row</div>
+                    <div class="exercise-details">3 เซ็ต × 10-12 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('db_row', 'DB Row', '3 เซ็ต × 10 ครั้ง/ข้าง')">
+                    <div class="exercise-icon">💪</div>
+                    <div class="exercise-name">DB Row</div>
+                    <div class="exercise-details">3 เซ็ต × 10 ครั้ง/ข้าง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('face_pull', 'Face Pull', '3 เซ็ต × 12-15 ครั้ง')">
+                    <div class="exercise-icon">👤</div>
+                    <div class="exercise-name">Face Pull</div>
+                    <div class="exercise-details">3 เซ็ต × 12-15 ครั้ง</div>
+                </div>
+            </div>
+            <div class="cardio-section">
+                <h3>🏃 คาร์ดิโอ</h3>
+                <p>เดินชันลู่วิ่ง 15-20 นาที<br>(ความชัน 7-10 / ความเร็ว 4.5-5.5)</p>
+            </div>
+        </div>
+
+        <!-- วันพุธ - พัก -->
+        <div class="day-section">
+            <div class="day-header">📅 พุธ</div>
+            <div class="rest-day">🛌 วันพัก<br><span style="font-size: 0.6em;">(เดินเล่นหรือยืด 20 นาที)</span></div>
+        </div>
+
+        <!-- วันพฤหัสบดี -->
+        <div class="day-section">
+            <div class="day-header">📅 พฤหัส — ไหล่ + ท้องล่าง</div>
+            <div class="exercise-grid">
+                <div class="exercise-card" onclick="openModal('shoulder_press', 'Shoulder Press', '4 เซ็ต × 8-10 ครั้ง')">
+                    <div class="exercise-icon">🔺</div>
+                    <div class="exercise-name">Shoulder Press</div>
+                    <div class="exercise-details">4 เซ็ต × 8-10 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('lateral_raise', 'Lateral Raise', '4 เซ็ต × 12-15 ครั้ง')">
+                    <div class="exercise-icon">🦅</div>
+                    <div class="exercise-name">Lateral Raise</div>
+                    <div class="exercise-details">4 เซ็ต × 12-15 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('rear_delt_fly', 'Rear Delt Fly', '3 เซ็ต × 12-15 ครั้ง')">
+                    <div class="exercise-icon">🦋</div>
+                    <div class="exercise-name">Rear Delt Fly</div>
+                    <div class="exercise-details">3 เซ็ต × 12-15 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('hanging_leg_raise', 'Hanging Leg Raise', '4 เซ็ต × 12 ครั้ง')">
+                    <div class="exercise-icon">⬆️</div>
+                    <div class="exercise-name">Hanging Leg Raise</div>
+                    <div class="exercise-details">4 เซ็ต × 12 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('lying_leg_raise', 'Lying Leg Raise', '3 เซ็ต × 15 ครั้ง')">
+                    <div class="exercise-icon">🛏️</div>
+                    <div class="exercise-name">Lying Leg Raise</div>
+                    <div class="exercise-details">3 เซ็ต × 15 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('reverse_crunch', 'Reverse Crunch', '3 เซ็ต × 15 ครั้ง')">
+                    <div class="exercise-icon">🔄</div>
+                    <div class="exercise-name">Reverse Crunch</div>
+                    <div class="exercise-details">3 เซ็ต × 15 ครั้ง</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- วันศุกร์ -->
+        <div class="day-section">
+            <div class="day-header">📅 ศุกร์ — แขน + เผาผลาญ</div>
+            <div class="exercise-grid">
+                <div class="exercise-card" onclick="openModal('barbell_curl', 'Barbell Curl', '3 เซ็ต × 10 ครั้ง')">
+                    <div class="exercise-icon">💪</div>
+                    <div class="exercise-name">Barbell Curl</div>
+                    <div class="exercise-details">3 เซ็ต × 10 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('hammer_curl', 'Hammer Curl', '3 เซ็ต × 12 ครั้ง')">
+                    <div class="exercise-icon">🔨</div>
+                    <div class="exercise-name">Hammer Curl</div>
+                    <div class="exercise-details">3 เซ็ต × 12 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('triceps_pushdown', 'Triceps Pushdown', '3 เซ็ต × 12 ครั้ง')">
+                    <div class="exercise-icon">⬇️</div>
+                    <div class="exercise-name">Triceps Pushdown</div>
+                    <div class="exercise-details">3 เซ็ต × 12 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('oh_triceps_ext', 'OH Triceps Extension', '3 เซ็ต × 12 ครั้ง')">
+                    <div class="exercise-icon">⬆️</div>
+                    <div class="exercise-name">OH Triceps Extension</div>
+                    <div class="exercise-details">3 เซ็ต × 12 ครั้ง</div>
+                </div>
+            </div>
+            <div class="cardio-section">
+                <h3>🔥 HIIT - 4 รอบ</h3>
+                <p>
+                    Mountain Climbers 30 วินาที<br>
+                    High Knees 30 วินาที<br>
+                    Burpees 10 ครั้ง<br>
+                    พัก 1 นาที
+                </p>
+            </div>
+        </div>
+
+        <!-- วันเสาร์ -->
+        <div class="day-section">
+            <div class="day-header">📅 เสาร์ — ขา (วันลดพุงจริง)</div>
+            <div class="exercise-grid">
+                <div class="exercise-card" onclick="openModal('squat', 'Squat', '4 เซ็ต × 8-10 ครั้ง')">
+                    <div class="exercise-icon">🏋️</div>
+                    <div class="exercise-name">Squat</div>
+                    <div class="exercise-details">4 เซ็ต × 8-10 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('leg_press', 'Leg Press', '3 เซ็ต × 12 ครั้ง')">
+                    <div class="exercise-icon">🦿</div>
+                    <div class="exercise-name">Leg Press</div>
+                    <div class="exercise-details">3 เซ็ต × 12 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('romanian_deadlift', 'Romanian Deadlift', '3 เซ็ต × 10 ครั้ง')">
+                    <div class="exercise-icon">⚡</div>
+                    <div class="exercise-name">Romanian Deadlift</div>
+                    <div class="exercise-details">3 เซ็ต × 10 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('leg_curl', 'Leg Curl', '3 เซ็ต × 12 ครั้ง')">
+                    <div class="exercise-icon">🦵</div>
+                    <div class="exercise-name">Leg Curl</div>
+                    <div class="exercise-details">3 เซ็ต × 12 ครั้ง</div>
+                </div>
+                <div class="exercise-card" onclick="openModal('standing_calf_raise', 'Standing Calf Raise', '4 เซ็ต × 15 ครั้ง')">
+                    <div class="exercise-icon">👟</div>
+                    <div class="exercise-name">Standing Calf Raise</div>
+                    <div class="exercise-details">4 เซ็ต × 15 ครั้ง</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- วันอาทิตย์ - พัก -->
+        <div class="day-section">
+            <div class="day-header">📅 อาทิตย์</div>
+            <div class="rest-day">🛌 วันพัก</div>
+        </div>
+
+        <!-- เคล็ดลับ -->
+        <div class="tips-box">
+            <h2>💡 เคล็ดลับเพิ่มผลลัพธ์</h2>
+            <ul>
+                <li><strong>อาหาร:</strong> โปรตีน 1.6-2g/กก. | คาร์บ 2-3g/กก. | ไขมันดี 0.8g/กก.</li>
+                <li><strong>Calorie Deficit:</strong> ขาดแคลอรี่ 300-500 kcal/วัน</li>
+                <li><strong>น้ำ:</strong> ดื่ม 3-4 ลิตร/วัน</li>
+                <li><strong>นอน:</strong> 7-8 ชั่วโมง/คืน</li>
+                <li><strong>Progressive Overload:</strong> เพิ่มน้ำหนักทุกสัปดาห์</li>
+                <li><strong>สม่ำเสมอคือกุญแจ:</strong> ทำต่อเนื่อง 12 สัปดาห์เห็นผลชัด</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="exerciseModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle"></div>
+                <div class="modal-subtitle" id="modalSubtitle"></div>
+            </div>
+            <div class="image-container" id="imageContainer">
+                <!-- รูปภาพจะถูกแทรกที่นี่ -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
+
+        function openModal(imageId, exerciseName, exerciseDetails) {
+            const modal = document.getElementById('exerciseModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalSubtitle = document.getElementById('modalSubtitle');
+            const imageContainer = document.getElementById('imageContainer');
+
+            modalTitle.textContent = exerciseName;
+            modalSubtitle.textContent = exerciseDetails;
+
+            // ลองโหลดรูปภาพจากหลายนามสกุล
+            const tryLoadImage = (ext, index) => {
+                if (index >= imageExtensions.length) {
+                    // ไม่พบรูปภาพ แสดง placeholder
+                    imageContainer.innerHTML = `
+                        <div class="image-placeholder">
+                            <div class="emoji">🎯</div>
+                            <h3>${exerciseName}</h3>
+                            <p style="font-size: 0.9em; margin-top: 20px;">
+                                กำลังรอรูปภาพ...
+                            </p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const img = new Image();
+                const imagePath = `./${imageId}${imageExtensions[index]}`;
+                
+                img.onload = function() {
+                    imageContainer.innerHTML = `<img src="${imagePath}" alt="${exerciseName}">`;
+                };
+                
+                img.onerror = function() {
+                    tryLoadImage(ext, index + 1);
+                };
+                
+                img.src = imagePath;
+            };
+
+            tryLoadImage('', 0);
+
+            // แสดง Modal
+            modal.style.display = 'block';
+
+            // ป้องกันการ scroll ของ body
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('exerciseModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // ปิด Modal เมื่อคลิกนอกกรอบ
+        window.onclick = function(event) {
+            const modal = document.getElementById('exerciseModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // ปิด Modal ด้วย ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
